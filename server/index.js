@@ -4,13 +4,22 @@ const mongodb = require("./db/connect");
 const cors = require("cors");
 
 // TODO: Add routes
+const movies = require("./routes/movies");
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(bodyParser.json()).use((req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+app.get("/", (req, res) => {
+  res.send("connected to backend");
 });
+
+app
+  .use(bodyParser.json())
+  .use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    next();
+  })
+  .use("/movies", movies);
 
 mongodb.initDb((err, mongodb) => {
   if (err) {
