@@ -24,7 +24,7 @@ class Navbar extends React.Component {
           <li>
             <NavLink to="">Following</NavLink>
           </li>
-          <li>
+          <li className="right-align">
             <NavLink to="">Search</NavLink>
           </li>
           <li>
