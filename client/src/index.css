@@ -145,6 +145,7 @@ table {
 
 /* * * * * * * END RESET * * * * * * */
 
+/* global stuff */
 a {
   text-decoration: none;
   color: var(--subtle-secondary-color);
@@ -155,6 +156,13 @@ a:visited {
   color: var(--subtle-secondary-color);
 }
 
+h1 {
+  font-weight: 900;
+  font-size: 3.5rem;
+  color: var(--main-color);
+}
+
+/* nav stuff */
 nav {
   background-color: white;
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
@@ -180,4 +188,105 @@ nav ul li a {
 
 nav ul li a:hover {
   transform: scale(1.1);
+}
+
+/* upcoming stuff */
+.upcoming-container {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 2.2rem);
+}
+
+.upcoming-img-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--secondary-color);
+}
+
+.upcoming-img {
+  border: 15px solid var(--subtle-secondary-color);
+}
+
+.upcoming-info-container {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-flow: column;
+  font-size: 0.9rem;
+}
+
+.upcoming-info {
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+}
+
+.upcoming-info p {
+  line-height: 1.2rem;
+}
+
+.genres-container {
+  display: flex;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.genre-name {
+  font-weight: 200;
+  font-size: 0.75rem;
+  border: 1px solid var(--subtle-main-color);
+  border-radius: 15px;
+  color: var(--subtle-main-color);
+  padding: 5px;
+}
+
+.actors-container {
+  display: flex;
+  flex-flow: row;
+  margin-bottom: 12px;
+}
+
+.actor-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.7rem;
+  width: 75px;
+  text-align: center;
+}
+
+.actor-img-container {
+  height: 50px;
+  width: 50px;
+  overflow: hidden;
+  border-radius: 100%;
+  margin-bottom: 6px;
+}
+
+.actor-img {
+  width: 100%;
+  margin-top: -8px;
+}
+
+.action-button-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.action-button {
+  font-size: 0.8rem;
+  padding: 7px 10px;
+  border: 2px solid var(--main-color);
+  border-radius: 7px;
+  background: none;
+  color: var(--main-color);
+}
+
+.add-to-button {
+  background-color: var(--main-color);
+  color: #fff;
 }

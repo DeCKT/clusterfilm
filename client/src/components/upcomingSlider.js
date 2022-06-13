@@ -1,4 +1,6 @@
 import React from "react";
+import Slider from "react-slick";
+
 import axios from "axios";
 
 const imgBaseUrl = "https://image.tmdb.org/t/p/";
@@ -10,13 +12,20 @@ const getGenres = async () =>
     return resp.data.genres;
   });
 
-class ShowMovies extends React.Component {
+class UpcomingSlider extends React.Component {
   constructor() {
     super();
     this.state = {
       upcoming: [],
     };
   }
+  settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
 
   async componentDidMount() {
     let newMovies = await axios
@@ -147,14 +156,9 @@ class ShowMovies extends React.Component {
       upcoming: upcomingMovies,
     });
   }
-
   render() {
-    return (
-      <div>
-        <ul>{this.state.upcoming}</ul>
-      </div>
-    );
+    return <Slider {...this.settings}>{this.state.upcoming}</Slider>;
   }
 }
 
-export default ShowMovies;
+export default UpcomingSlider;
