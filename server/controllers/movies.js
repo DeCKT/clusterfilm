@@ -24,7 +24,18 @@ const getMovieActors = async (req, res) => {
   );
 };
 
+const getGenres = async (req, res) => {
+  res.send(
+    await axios
+      .get(`${baseUrl}/genre/movie/list?api_key=${apiKey}`)
+      .then((resp) => {
+        return resp.data;
+      })
+  );
+};
+
 module.exports = {
   getUpcoming,
   getMovieActors,
+  getGenres,
 };

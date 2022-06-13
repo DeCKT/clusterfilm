@@ -4,6 +4,13 @@ import axios from "axios";
 const imgBaseUrl = "https://image.tmdb.org/t/p/";
 const imgSize = "w200";
 
+const backendHost = "http://localhost:5000";
+
+const getGenres = async () =>
+  axios.get(`${backendHost}/movies/genres`).then((resp) => {
+    return resp.data.genres;
+  });
+
 class ShowMovies extends React.Component {
   constructor() {
     super();
@@ -14,19 +21,17 @@ class ShowMovies extends React.Component {
 
   async getActors(movieId) {
     let actors = [];
-    await axios
-      .get(`http://localhost:5000/movies/cast/${movieId}`)
-      .then((resp) => {
-        for (let i = 0; i < 4; i++) {
-          actors[i] = resp.data.cast[i];
-        }
-      });
+    await axios.get(`${backendHost}/movies/cast/${movieId}`).then((resp) => {
+      for (let i = 0; i < 4; i++) {
+        actors[i] = resp.data.cast[i];
+      }
+    });
     console.log(actors);
   }
 
   async componentDidMount() {
     let newMovies = await axios
-      .get("http://localhost:5000/movies/upcoming")
+      .get(`${backendHost}/movies/upcoming`)
       .then((resp) => {
         return resp.data.results;
       });
@@ -35,15 +40,27 @@ class ShowMovies extends React.Component {
         id: movie.id,
         title: movie.title,
         poster_path: movie.poster_path,
+        overview: movie.overview,
+        genres: movie.genre_ids,
       };
     });
 
-    console.log(newMovies);
+    // let genresParsed = reducedMovies.forEach((movie) => {
+    //   movie.genres.map((genre) => {
+    //     return genresArray.find((ele) => ele.id === genre.id).name;
+    //   });
+    // });
+
+    // for (let i = 0; i < 5; i++) {
+    //   reducedMovies[i].genres = genresParsed[i];
+    // }
+
+    // console.log(newMovies);
 
     let movieCasts = await Promise.all(
       reducedMovies.map((movie) => {
         return axios
-          .get(`http://localhost:5000/movies/cast/${movie.id}`)
+          .get(`${backendHost}/movies/cast/${movie.id}`)
           .then((resp) => {
             return resp.data.cast;
           });
@@ -61,6 +78,18 @@ class ShowMovies extends React.Component {
         }),
       };
     });
+
+    let genresArray = await getGenres();
+
+    let thing = reducedMovies.map((movie) => {
+      return movie.genres.map((genre) => {
+        return genresArray.find((item) => {
+          return item.id === genre;
+        });
+      });
+    });
+
+    console.log(thing);
 
     let reduced = [];
 
@@ -82,6 +111,12 @@ class ShowMovies extends React.Component {
                 </li>
               );
             })}
+          </ul>
+          <p>{movie.overview}</p>
+          <ul>
+            {/* {movie.genres.map((genre) => {
+              return <li key={genre.name}>{genre.name}</li>;
+            })} */}
           </ul>
         </li>
       );
