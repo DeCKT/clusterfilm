@@ -156,9 +156,25 @@ a:visited {
   color: var(--subtle-secondary-color);
 }
 
+button:focus {
+  outline: none;
+}
+
 h1 {
   font-weight: 900;
   font-size: 3.5rem;
+  color: var(--main-color);
+}
+
+h2 {
+  font-weight: 900;
+  font-size: 2rem;
+  color: var(--main-color);
+}
+
+h3 {
+  font-weight: 900;
+  font-size: 1.7rem;
   color: var(--main-color);
 }
 
@@ -168,6 +184,7 @@ nav {
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
   position: sticky;
   top: 0;
+  z-index: 10;
 }
 
 nav ul {
@@ -181,20 +198,38 @@ nav ul {
 
 nav ul li a {
   display: block;
-  margin: 0.7rem;
-  font-weight: 400;
-  transition: all 0.3s ease-in-out;
+  padding: 0.7rem;
 }
 
-nav ul li a:hover {
+nav ul li {
+  transition: all 0.3s ease-in-out;
+  display: block;
+
+  font-weight: 400;
+}
+
+nav ul li:hover {
   transform: scale(1.1);
 }
 
 /* upcoming stuff */
+
+#upcoming {
+  width: 100%;
+  position: relative;
+  height: calc(100vh - 2.2rem);
+  background-color: var(--secondary-color);
+}
+
+#upcoming ul:first-child {
+  height: 100%;
+}
+
 .upcoming-container {
   display: flex;
+  flex-basis: auto;
   width: 100%;
-  height: calc(100vh - 2.2rem);
+  height: 100%;
 }
 
 .upcoming-img-container {
@@ -202,7 +237,6 @@ nav ul li a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--secondary-color);
 }
 
 .upcoming-img {
@@ -216,6 +250,7 @@ nav ul li a:hover {
   justify-content: center;
   flex-flow: column;
   font-size: 0.9rem;
+  background-color: #fff;
 }
 
 .upcoming-info {
@@ -286,7 +321,235 @@ nav ul li a:hover {
   color: var(--main-color);
 }
 
-.add-to-button {
+.add-to-button,
+.edit-button,
+.follow-button {
   background-color: var(--main-color);
   color: #fff;
+}
+
+.cycle-button-container {
+  position: absolute;
+  top: 50%;
+  width: calc(50% - 10px);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5px;
+}
+
+.cycle-button-container button {
+  border: none;
+  border-radius: 7px;
+  height: 40px;
+  width: 40px;
+  background-color: rgba(217, 142, 4, 0.3);
+}
+
+/* trending stuff */
+
+#trending {
+  position: relative;
+  width: 100%;
+  margin-top: 60px;
+}
+
+.trending-image-container {
+  max-height: calc(100vh - 2.2rem);
+  overflow: hidden;
+}
+
+.trending-image {
+  width: 100%;
+}
+
+.trending-title {
+  position: absolute;
+  bottom: 30px;
+  left: 35px;
+  text-shadow: rgba(115, 64, 2, 0.4) 6px 6px 5px;
+}
+
+/* clusters stuff */
+#clusters {
+  padding-left: 35px;
+  margin-top: 60px;
+}
+
+.clusters-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.cluster-container {
+  display: flex;
+  width: 100%;
+}
+
+.cluster-info-container {
+  width: 30%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-flow: column;
+  font-size: 0.9rem;
+}
+
+.cluster-info-name {
+  margin-bottom: 12px;
+}
+
+.cluster-info-creator {
+  margin-bottom: 3px;
+}
+
+.cluster-buttons {
+  display: flex;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.cluster-film-images {
+  width: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.cluster-film-image-container {
+  display: flex;
+  gap: 24px;
+}
+
+.cluster-film-image {
+  border-radius: 7px;
+}
+
+.cluster-film-image img {
+  border-radius: 7px;
+}
+
+.cluster-film-image:first-child {
+  padding-left: 35px;
+}
+
+.cluster-film-image:last-child {
+  padding-right: 35px;
+}
+
+.cluster-film-images::-webkit-scrollbar {
+  display: none;
+}
+
+/* my clusters stuff */
+
+/* #my-clusters {
+  margin-top: 60px;
+}
+
+.cluster-title {
+  margin-left: 35px;
+}
+
+.cluster-info {
+  display: flex;
+  margin-left: 35px;
+}
+
+.cluster-info-name {
+  margin-right: 6px;
+}
+
+.cluster-info-name::after {
+  content: "|";
+  padding-left: 6px;
+}
+
+.cluster-info-count {
+  margin-right: 6px;
+}
+
+.cluster-info-count::after {
+  content: "|";
+  padding-left: 6px;
+}
+
+.cluster-container {
+  display: flex;
+  gap: 24px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.cluster-container::-webkit-scrollbar {
+  display: none;
+}
+
+.cluster-item {
+  width: 22%;
+  aspect-ratio: 1 / 1.5;
+  flex: 1 0 auto;
+
+  overflow: hidden;
+}
+
+.cluster-item:first-of-type {
+  padding-left: 35px;
+}
+
+.cluster-item:last-of-type {
+  padding-right: 35px;
+}
+
+.cluster-item img {
+  width: 100%;
+  height: 100%;
+  border-radius: 7px;
+} */
+
+/* following clusters stuff */
+.following-container {
+  display: flex;
+  margin: auto 35px;
+  justify-content: space-between;
+  margin-top: 60px;
+  gap: 60px;
+}
+
+.following-cluster-info {
+  display: flex;
+}
+
+.following-film-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.following-film-image {
+  overflow: hidden;
+  max-width: 50%;
+  aspect-ratio: 1/1;
+  border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.following-film-image img {
+  width: 100%;
+}
+
+/* footer stuff */
+.footer-container {
+  background-color: var(--secondary-color);
+  color: #fff;
+  margin-top: 60px;
+}
+
+.footer-db-img {
+  height: 0.9rem;
+  padding-left: 5px;
 }

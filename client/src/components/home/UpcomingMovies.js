@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+
 const imgBaseUrl = "https://image.tmdb.org/t/p/";
 
 const backendHost = "http://localhost:5000";
@@ -10,13 +12,38 @@ const getGenres = async () =>
     return resp.data.genres;
   });
 
-class ShowMovies extends React.Component {
+class UpcomingMovies extends React.Component {
   constructor() {
     super();
     this.state = {
       upcoming: [],
+      activeIndex: 0,
     };
   }
+
+  cycleNext = () => {
+    if (this.state.activeIndex === this.state.upcoming.length - 1) {
+      this.setState({
+        activeIndex: 0,
+      });
+    } else {
+      this.setState({
+        activeIndex: this.state.activeIndex + 1,
+      });
+    }
+  };
+
+  cyclePrev = () => {
+    if (this.state.activeIndex === 0) {
+      this.setState({
+        activeIndex: this.state.upcoming.length - 1,
+      });
+    } else {
+      this.setState({
+        activeIndex: this.state.activeIndex - 1,
+      });
+    }
+  };
 
   async componentDidMount() {
     let newMovies = await axios
@@ -90,8 +117,6 @@ class ShowMovies extends React.Component {
       };
     }
 
-    console.log(reduced);
-
     let upcomingMovies = reduced.map((movie) => {
       return (
         <li className="upcoming-container" key={movie.id}>
@@ -150,11 +175,19 @@ class ShowMovies extends React.Component {
 
   render() {
     return (
-      <div>
-        <ul>{this.state.upcoming}</ul>
+      <div id="upcoming">
+        <ul>{this.state.upcoming[this.state.activeIndex]}</ul>
+        <div className="cycle-button-container">
+          <button onClick={this.cyclePrev}>
+            <IoIosArrowBack />
+          </button>
+          <button onClick={this.cycleNext}>
+            <IoIosArrowForward />
+          </button>
+        </div>
       </div>
     );
   }
 }
 
-export default ShowMovies;
+export default UpcomingMovies;

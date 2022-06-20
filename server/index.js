@@ -5,6 +5,7 @@ const cors = require("cors");
 
 // TODO: Add routes
 const movies = require("./routes/movies");
+const trending = require("./routes/trending");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -19,7 +20,8 @@ app
     res.setHeader("Access-Control-Allow-Origin", "*");
     next();
   })
-  .use("/movies", movies);
+  .use("/movies", movies)
+  .use("/trending", trending);
 
 mongodb.initDb((err, mongodb) => {
   if (err) {

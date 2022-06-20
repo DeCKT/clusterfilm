@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 let isLoggedIn = false;
 
-class Navbar extends React.Component {
+class NavBar extends React.Component {
   render() {
     return (
       <nav>
@@ -13,22 +13,19 @@ class Navbar extends React.Component {
             <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <NavLink to="">Coming Soon</NavLink>
+            <NavLink to="/coming-soon">Coming Soon</NavLink>
           </li>
           <li>
-            <NavLink to="">Suggested</NavLink>
+            <NavLink to="/suggested">Suggested</NavLink>
           </li>
           <li>
-            <NavLink to="">My Clusters</NavLink>
-          </li>
-          <li>
-            <NavLink to="">Following</NavLink>
+            <NavLink to="/my-clusters">My Clusters</NavLink>
           </li>
           <li className="right-align">
             <NavLink to="">Search</NavLink>
           </li>
           <li>
-            <NavLink to="">{isLoggedIn ? "Account" : "Login"}</NavLink>
+            <NavLink to="/profile">{isLoggedIn ? "Account" : "Login"}</NavLink>
           </li>
         </ul>
       </nav>
@@ -36,4 +33,4 @@ class Navbar extends React.Component {
   }
 }
 
-export default Navbar;
+export default NavBar;
