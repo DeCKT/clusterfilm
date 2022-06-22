@@ -7,7 +7,7 @@ const apiKey = process.env.TMDB_KEY;
 const getUpcoming = async (req, res) => {
   res.send(
     await axios
-      .get(`${baseUrl}/movie/upcoming?api_key=${apiKey}`)
+      .get(`${baseUrl}/movie/upcoming?api_key=${apiKey}&region=US`)
       .then((resp) => {
         return resp.data;
       })

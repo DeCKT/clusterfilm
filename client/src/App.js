@@ -10,12 +10,14 @@ import ComingSoon from "./components/coming-soon/ComingSoon";
 import Suggested from "./components/suggested/Suggested";
 import MyClusters from "./components/my-clusters/MyClusters";
 import Profile from "./components/profile/Profile";
+import Search from "./components/search/Search";
 
 class App extends React.Component {
   render() {
     return (
       <>
         <NavBar />
+        <Search />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/coming-soon" element={<ComingSoon />} />
