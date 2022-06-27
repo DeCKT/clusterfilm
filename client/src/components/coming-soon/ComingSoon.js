@@ -33,9 +33,6 @@ class ComingSoon extends React.Component {
     let movies = await this.getMovies();
     let shows = await this.getShows();
 
-    console.log(movies);
-    console.log(shows);
-
     this.setState({
       movies: movies,
       shows: shows,
@@ -52,7 +49,13 @@ class ComingSoon extends React.Component {
                 <h3>{movie.title}</h3>
                 <span>{moment(movie.release_date).format("MMMM Do YYYY")}</span>
               </div>
-              <img src={imgBaseUrl + "w200" + movie.poster_path} />
+              <img
+                className="coming-soon-image"
+                src={imgBaseUrl + "w200" + movie.poster_path}
+                onError={({ currentTarget }) => {
+                  currentTarget.src = "/no-img.svg";
+                }}
+              />
             </li>
           );
         })}
@@ -65,7 +68,13 @@ class ComingSoon extends React.Component {
                   {moment(show.first_air_date).format("MMMM Do YYYY")}
                 </span>
               </div>
-              <img src={imgBaseUrl + "w200" + show.poster_path} />
+              <img
+                className="coming-soon-image"
+                src={imgBaseUrl + "w200" + show.poster_path}
+                onError={({ currentTarget }) => {
+                  currentTarget.src = "/no-img.svg";
+                }}
+              />
             </li>
           );
         })}

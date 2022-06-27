@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const imgBaseUrl = "https://image.tmdb.org/t/p/";
 
@@ -60,18 +61,6 @@ class UpcomingMovies extends React.Component {
         genres: movie.genre_ids,
       };
     });
-
-    // let genresParsed = reducedMovies.forEach((movie) => {
-    //   movie.genres.map((genre) => {
-    //     return genresArray.find((ele) => ele.id === genre.id).name;
-    //   });
-    // });
-
-    // for (let i = 0; i < 5; i++) {
-    //   reducedMovies[i].genres = genresParsed[i];
-    // }
-
-    // console.log(newMovies);
 
     let movieCasts = await Promise.all(
       reducedMovies.map((movie) => {
@@ -155,9 +144,12 @@ class UpcomingMovies extends React.Component {
               </ul>
               <p>{movie.overview}</p>
               <div className="action-button-container">
-                <button className="details-button action-button">
+                <Link
+                  to={`result/${movie.id}`}
+                  className="details-button action-button"
+                >
                   Details
-                </button>
+                </Link>
                 <button className="add-to-button action-button">
                   Add to Cluster
                 </button>

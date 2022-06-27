@@ -10,20 +10,20 @@ import ComingSoon from "./components/coming-soon/ComingSoon";
 import Suggested from "./components/suggested/Suggested";
 import MyClusters from "./components/my-clusters/MyClusters";
 import Profile from "./components/profile/Profile";
-import Search from "./components/search/Search";
+import Result from "./components/results/Result";
 
 class App extends React.Component {
   render() {
     return (
       <>
         <NavBar />
-        <Search />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/coming-soon" element={<ComingSoon />} />
           <Route path="/suggested" element={<Suggested />} />
           <Route path="/my-clusters" element={<MyClusters />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/result/:type/:result_id" element={<Result />} />
         </Routes>
         <Footer />
       </>

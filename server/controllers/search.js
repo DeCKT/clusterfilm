@@ -18,6 +18,38 @@ const searchAll = async (req, res) => {
   }
 };
 
+const searchMovieById = async (req, res) => {
+  res.send(
+    await axios
+      .get(`${baseUrl}/movie/${req.params.id}?api_key=${apiKey}`)
+      .then((resp) => {
+        return resp.data;
+      })
+  );
+};
+
+const searchShowById = async (req, res) => {
+  res.send(
+    await axios
+      .get(`${baseUrl}/tv/${req.params.id}?api_key=${apiKey}`)
+      .then((resp) => {
+        return resp.data;
+      })
+  );
+};
+
+const searchPersonById = async (req, res) => {
+  res.send(
+    await axios
+      .get(`${baseUrl}/person/${req.params.id}?api_key=${apiKey}`)
+      .then((resp) => {
+        return resp.data;
+      })
+  );
+};
 module.exports = {
   searchAll,
+  searchMovieById,
+  searchShowById,
+  searchPersonById,
 };
