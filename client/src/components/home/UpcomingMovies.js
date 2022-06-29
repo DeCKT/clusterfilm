@@ -145,7 +145,7 @@ class UpcomingMovies extends React.Component {
               <p>{movie.overview}</p>
               <div className="action-button-container">
                 <Link
-                  to={`result/${movie.id}`}
+                  to={`result/movie/${movie.id}`}
                   className="details-button action-button"
                 >
                   Details

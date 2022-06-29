@@ -199,12 +199,14 @@ nav {
 }
 
 .navbar-item a,
-.search-button {
+.search-button,
+.login-button {
   display: block;
   padding: 0.7rem;
 }
 
-.search-button {
+.search-button,
+.login-button {
   font-size: 0.8rem;
   border: none;
   background: none;
