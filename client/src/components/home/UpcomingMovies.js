@@ -13,14 +13,36 @@ const getGenres = async () =>
     return resp.data.genres;
   });
 
+const addCluster = async (email, title, filmId) => {
+  let newCluster = axios.post(`${backendHost}/cluster/new`, {
+    email: email,
+    title: title,
+  });
+  let clusterId = (await newCluster).data.insertedId;
+  axios.put(`${backendHost}/cluster/${clusterId}/add/${filmId}`);
+};
+
 class UpcomingMovies extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       upcoming: [],
       activeIndex: 0,
+      adderOpen: false,
     };
   }
+
+  toggleAdder = () => {
+    let adderContainer = document.querySelector("#cluster-adder-container");
+    console.log(adderContainer);
+    if (adderContainer.classList.contains("adder-open")) {
+      adderContainer.classList.remove("adder-open");
+      adderContainer.classList.add("adder-closed");
+    } else if (adderContainer.classList.contains("adder-closed")) {
+      adderContainer.classList.remove("adder-closed");
+      adderContainer.classList.add("adder-open");
+    }
+  };
 
   cycleNext = () => {
     if (this.state.activeIndex === this.state.upcoming.length - 1) {
@@ -46,7 +68,19 @@ class UpcomingMovies extends React.Component {
     }
   };
 
+  openClusterAdder = () => {
+    let modal = document.querySelector("#new-cluster-modal");
+    modal.classList.remove("modal-closed");
+    modal.classList.add("modal-open");
+  };
+
   async componentDidMount() {
+    let userClusters = await axios
+      .get(`${backendHost}/cluster/user/${this.props.userEmail}`)
+      .then((resp) => {
+        return resp.data;
+      });
+
     let newMovies = await axios
       .get(`${backendHost}/movies/upcoming`)
       .then((resp) => {
@@ -150,9 +184,48 @@ class UpcomingMovies extends React.Component {
                 >
                   Details
                 </Link>
-                <button className="add-to-button action-button">
-                  Add to Cluster
-                </button>
+                <div className="add-to-container">
+                  <button
+                    className="add-to-button action-button"
+                    onClick={() => {
+                      this.toggleAdder();
+                    }}
+                  >
+                    Add to Cluster
+                  </button>
+                  <div id="cluster-adder-container" className="adder-closed">
+                    <ul>
+                      {userClusters.map((cluster) => {
+                        return <li>{cluster.name}</li>;
+                      })}
+                      <li
+                        onClick={() => {
+                          this.openClusterAdder();
+                        }}
+                      >
+                        New cluster
+                      </li>
+                    </ul>
+                  </div>
+                  <div id="new-cluster-modal" className="modal-closed">
+                    <div>
+                      Title: <input id="new-cluster-title" type="text" />
+                    </div>
+                    <div>
+                      <button
+                        onClick={() => {
+                          addCluster(
+                            this.props.userEmail,
+                            document.querySelector("#new-cluster-title").value,
+                            movie.id
+                          );
+                        }}
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

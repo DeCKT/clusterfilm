@@ -7,9 +7,9 @@ class Home extends React.Component {
   render() {
     return (
       <>
-        <UpcomingMovies />
+        <UpcomingMovies userEmail={this.props.userEmail} />
         <Trending />
-        <Clusters />
+        <Clusters userEmail={this.props.userEmail} />
       </>
     );
   }

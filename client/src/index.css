@@ -372,6 +372,7 @@ nav {
   display: flex;
   gap: 10px;
   margin-top: 20px;
+  position: relative;
 }
 
 .action-button {
@@ -388,6 +389,71 @@ nav {
 .follow-button {
   background-color: var(--main-color);
   color: #fff;
+}
+
+.add-to-container {
+  position: relative;
+}
+
+.adder-open {
+  display: flex;
+  position: absolute;
+  width: auto;
+  left: calc(100% + 10px);
+  bottom: 0;
+  background-color: white;
+  border-radius: 7px;
+  box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.adder-open ul {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+.adder-open ul::-webkit-scrollbar {
+  width: 10px;
+}
+
+.adder-open ul::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--main-color);
+}
+
+.adder-open li {
+  white-space: nowrap;
+  padding: 10px 10px;
+}
+
+.adder-open li:hover {
+  background-color: rgba(217, 142, 4, 0.3);
+}
+
+.adder-closed {
+  display: none;
+}
+
+.modal-open {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  z-index: 15;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 60%;
+  width: 60%;
+  background-color: white;
+  box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);
+  border-radius: 7px;
+  padding: 2rem;
+}
+
+.modal-closed {
+  display: none;
 }
 
 .cycle-button-container {

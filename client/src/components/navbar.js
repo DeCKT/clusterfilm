@@ -7,14 +7,10 @@ import Search from "./search/Search";
 
 import { useAuth0 } from "@auth0/auth0-react";
 
-let isLoggedIn = false;
-
 function NavBar() {
   const [searchOpen, setSearchOpen] = useState(false);
 
-  const { user } = useAuth0();
-
-  console.log(user);
+  const { isAuthenticated, user } = useAuth0();
 
   return (
     <nav>
@@ -42,7 +38,11 @@ function NavBar() {
           </div>
         </li>
         <li className="navbar-item">
-          {user ? <NavLink to="/profile">Account</NavLink> : <Login />}
+          {isAuthenticated ? (
+            <NavLink to="/profile">Account</NavLink>
+          ) : (
+            <Login />
+          )}
         </li>
       </ul>
       {searchOpen ? <Search /> : null}
