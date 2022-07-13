@@ -7,6 +7,8 @@ const imgBaseUrl = "https://image.tmdb.org/t/p/";
 
 const backendHost = "http://localhost:5000";
 
+let timer;
+
 class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -27,6 +29,9 @@ class Search extends React.Component {
   }
 
   render() {
+    if (!this.state.results) {
+      return <div className="loading-div">Loading</div>;
+    }
     return (
       <div id="search">
         <div className="search-input-container">
@@ -47,9 +52,11 @@ class Search extends React.Component {
                   <img
                     className="search-result-image"
                     src={
-                      imgBaseUrl +
-                      "w200" +
-                      (result.poster_path || result.profile_path)
+                      result.poster_path || result.profile_path
+                        ? imgBaseUrl +
+                          "w200" +
+                          (result.poster_path || result.profile_path)
+                        : "/no-img.svg"
                     }
                     onError={({ currentTarget }) => {
                       currentTarget.src = "/no-img.svg";

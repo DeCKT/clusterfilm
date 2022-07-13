@@ -4,10 +4,19 @@ import Logout from "../Logout";
 
 function Profile() {
   const { user } = useAuth0();
+  console.log(user);
   return (
-    <div>
-      <h1>{user.name}</h1>
-      <Logout />
+    <div id="profile">
+      <div className="profile-image">
+        <img className="profile-picture" src={user.picture} />
+      </div>
+      <div className="profile-details">
+        <h1>{user.name}</h1>
+        <span>{user.email}</span>
+        <div className="logout-container">
+          <Logout />
+        </div>
+      </div>
     </div>
   );
 }

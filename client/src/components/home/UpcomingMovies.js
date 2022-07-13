@@ -13,13 +13,20 @@ const getGenres = async () =>
     return resp.data.genres;
   });
 
-const addCluster = async (email, title, filmId) => {
+const addCluster = async (email, title, film) => {
   let newCluster = axios.post(`${backendHost}/cluster/new`, {
     email: email,
     title: title,
   });
   let clusterId = (await newCluster).data.insertedId;
-  axios.put(`${backendHost}/cluster/${clusterId}/add/${filmId}`);
+  axios.put(`${backendHost}/cluster/${clusterId}/add/${film.id}`, film);
+};
+
+const addFilmToCluster = async (film, clusterId) => {
+  console.log(`Film: `);
+  console.log(film);
+  console.log(`Cluster: ${clusterId}`);
+  axios.put(`${backendHost}/cluster/${clusterId}/add/${film.id}`, film);
 };
 
 class UpcomingMovies extends React.Component {
@@ -34,7 +41,6 @@ class UpcomingMovies extends React.Component {
 
   toggleAdder = () => {
     let adderContainer = document.querySelector("#cluster-adder-container");
-    console.log(adderContainer);
     if (adderContainer.classList.contains("adder-open")) {
       adderContainer.classList.remove("adder-open");
       adderContainer.classList.add("adder-closed");
@@ -74,13 +80,13 @@ class UpcomingMovies extends React.Component {
     modal.classList.add("modal-open");
   };
 
-  async componentDidMount() {
-    let userClusters = await axios
-      .get(`${backendHost}/cluster/user/${this.props.userEmail}`)
-      .then((resp) => {
-        return resp.data;
-      });
+  closeClusterAdder = () => {
+    let modal = document.querySelector("#new-cluster-modal");
+    modal.classList.add("modal-closed");
+    modal.classList.remove("modal-open");
+  };
 
+  async componentDidMount() {
     let newMovies = await axios
       .get(`${backendHost}/movies/upcoming`)
       .then((resp) => {
@@ -184,6 +190,7 @@ class UpcomingMovies extends React.Component {
                 >
                   Details
                 </Link>
+
                 <div className="add-to-container">
                   <button
                     className="add-to-button action-button"
@@ -195,8 +202,26 @@ class UpcomingMovies extends React.Component {
                   </button>
                   <div id="cluster-adder-container" className="adder-closed">
                     <ul>
-                      {userClusters.map((cluster) => {
-                        return <li>{cluster.name}</li>;
+                      {this.props.userClusters.map((cluster) => {
+                        return (
+                          <li
+                            key={cluster.title}
+                            onClick={() => {
+                              addFilmToCluster(
+                                {
+                                  id: movie.id,
+                                  poster: movie.poster_path,
+                                  type: "movie",
+                                  title: movie.title,
+                                },
+                                cluster._id
+                              );
+                              this.toggleAdder();
+                            }}
+                          >
+                            {cluster.title}
+                          </li>
+                        );
                       })}
                       <li
                         onClick={() => {
@@ -217,8 +242,15 @@ class UpcomingMovies extends React.Component {
                           addCluster(
                             this.props.userEmail,
                             document.querySelector("#new-cluster-title").value,
-                            movie.id
+                            {
+                              id: movie.id,
+                              poster: movie.poster_path,
+                              type: "movie",
+                              title: movie.title,
+                            }
                           );
+                          this.closeClusterAdder();
+                          this.toggleAdder();
                         }}
                       >
                         Submit

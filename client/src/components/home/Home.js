@@ -7,9 +7,15 @@ class Home extends React.Component {
   render() {
     return (
       <>
-        <UpcomingMovies userEmail={this.props.userEmail} />
+        <UpcomingMovies
+          userEmail={this.props.userEmail}
+          userClusters={this.props.userClusters}
+        />
         <Trending />
-        <Clusters userEmail={this.props.userEmail} />
+        <Clusters
+          userEmail={this.props.userEmail}
+          userClusters={this.props.userClusters}
+        />
       </>
     );
   }

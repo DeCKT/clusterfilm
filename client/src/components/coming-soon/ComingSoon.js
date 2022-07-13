@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 const backendHost = "http://localhost:5000";
 
@@ -14,6 +15,7 @@ class ComingSoon extends React.Component {
     this.state = {
       movies: [],
       shows: [],
+      loaded: false,
     };
   }
 
@@ -36,49 +38,70 @@ class ComingSoon extends React.Component {
     this.setState({
       movies: movies,
       shows: shows,
+      loaded: true,
     });
   }
 
   render() {
+    if (!this.state.loaded) {
+      return <div className="loading-div">Loading...</div>;
+    }
+
     return (
-      <ul>
-        {this.state.movies.map((movie) => {
-          return (
-            <li key={movie.id}>
-              <div>
-                <h3>{movie.title}</h3>
-                <span>{moment(movie.release_date).format("MMMM Do YYYY")}</span>
-              </div>
-              <img
-                className="coming-soon-image"
-                src={imgBaseUrl + "w200" + movie.poster_path}
-                onError={({ currentTarget }) => {
-                  currentTarget.src = "/no-img.svg";
-                }}
-              />
-            </li>
-          );
-        })}
-        {this.state.shows.map((show) => {
-          return (
-            <li key={show.id}>
-              <div>
-                <h3>{show.name}</h3>
-                <span>
-                  {moment(show.first_air_date).format("MMMM Do YYYY")}
-                </span>
-              </div>
-              <img
-                className="coming-soon-image"
-                src={imgBaseUrl + "w200" + show.poster_path}
-                onError={({ currentTarget }) => {
-                  currentTarget.src = "/no-img.svg";
-                }}
-              />
-            </li>
-          );
-        })}
-      </ul>
+      <div className="coming-soon">
+        <ul className="coming-soon-container">
+          {this.state.movies.map((movie) => {
+            return (
+              <li className="coming-soon-film" key={movie.id}>
+                <Link to={`/result/movie/${movie.id}`}>
+                  <div className="coming-soon-film-info">
+                    <h3>{movie.title}</h3>
+                    <span>
+                      {moment(movie.release_date).format("MMMM Do YYYY")}
+                    </span>
+                  </div>
+                  <img
+                    className="coming-soon-image"
+                    src={
+                      movie.poster_path
+                        ? imgBaseUrl + "w200" + movie.poster_path
+                        : "/no-img.svg"
+                    }
+                    onError={({ currentTarget }) => {
+                      currentTarget.src = "/no-img.svg";
+                    }}
+                  />
+                </Link>
+              </li>
+            );
+          })}
+          {this.state.shows.map((show) => {
+            return (
+              <li className="coming-soon-film" key={show.id}>
+                <Link to={`/result/tv/${show.id}`}>
+                  <div className="coming-soon-film-info">
+                    <h3>{show.name}</h3>
+                    <span>
+                      {moment(show.first_air_date).format("MMMM Do YYYY")}
+                    </span>
+                  </div>
+                  <img
+                    className="coming-soon-image"
+                    src={
+                      show.poster_path
+                        ? imgBaseUrl + "w200" + show.poster_path
+                        : "/no-img.svg"
+                    }
+                    onError={({ currentTarget }) => {
+                      currentTarget.src = "/no-img.svg";
+                    }}
+                  />
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     );
   }
 }

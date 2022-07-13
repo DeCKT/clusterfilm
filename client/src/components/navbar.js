@@ -21,9 +21,9 @@ function NavBar() {
         <li className="navbar-item">
           <NavLink to="/coming-soon">Coming Soon</NavLink>
         </li>
-        <li className="navbar-item">
+        {/* <li className="navbar-item">
           <NavLink to="/suggested">Suggested</NavLink>
-        </li>
+        </li> */}
         <li className="navbar-item">
           <NavLink to="/my-clusters">My Clusters</NavLink>
         </li>
