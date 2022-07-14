@@ -397,7 +397,8 @@ nav {
 
 .add-to-button,
 .edit-button,
-.follow-button {
+.follow-button,
+.modal-add-cluster-button button {
   background-color: var(--main-color);
   color: #fff;
 }
@@ -455,12 +456,19 @@ nav {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 60%;
-  width: 60%;
   background-color: white;
   box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);
   border-radius: 7px;
   padding: 2rem;
+  gap: 10px;
+  max-width: 300px;
+}
+
+#new-cluster-title {
+  width: 100%;
+  padding: 0.4rem;
+  border: 1px solid var(--secondary-color);
+  border-radius: 7px;
 }
 
 .modal-closed {

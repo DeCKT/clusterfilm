@@ -233,11 +233,15 @@ class UpcomingMovies extends React.Component {
                     </ul>
                   </div>
                   <div id="new-cluster-modal" className="modal-closed">
-                    <div>
+                    <div className="modal-film-to-add">
+                      Add {movie.title} to new cluster:
+                    </div>
+                    <div className="modal-cluster-title">
                       Title: <input id="new-cluster-title" type="text" />
                     </div>
-                    <div>
+                    <div className="modal-add-cluster-button">
                       <button
+                        className="action-button"
                         onClick={() => {
                           addCluster(
                             this.props.userEmail,
